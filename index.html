@@ -1,952 +1,1006 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>General Trading Company | Import • Export • Distribution</title>
+  <title>Wahid Business News — International Style</title>
 
   <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- AOS (Animate On Scroll) -->
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <!-- Display font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
   <style>
+    /* =========================
+       THEME TOKENS (LIGHT/ DARK)
+    ========================== */
     :root{
-      --brand: #f4c21b;
-      --ink: #0b1220;
-      --muted: #6c757d;
-      --glass: rgba(255,255,255,.08);
-      --stroke: rgba(255,255,255,.18);
-      --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-2: #f7f8fb;
+      --text: #0f172a;
+      --muted: rgba(15, 23, 42, .70);
+      --border: rgba(15, 23, 42, .10);
+      --shadow: 0 14px 40px rgba(2,6,23,.08);
+
+      --brand: #088c16;
+      --brand-2: #088c16;
+      --accent: #facc15;  /* yellow */
+      --danger: #dc3545;
+      --success: #16a34a;
+
+      --ticker-bg: #0d1117;
+      --ticker-text: #ffffff;
     }
 
-    html, body{
-      width: 100%;
-      overflow-x: hidden;
+    html[data-theme="dark"]{
+      --bg: #0b1220;
+      --surface: rgba(255,255,255,.06);
+      --surface-2: rgba(255,255,255,.09);
+      --text: #e8eefc;
+      --muted: rgba(232,238,252,.72);
+      --border: rgba(255,255,255,.14);
+      --shadow: 0 18px 55px rgba(0,0,0,.38);
+
+      --brand: #6ea8fe;
+      --brand-2: #91b7ff;
+      --accent: #facc15;
+
+      --ticker-bg: rgba(255,255,255,.06);
+      --ticker-text: #e8eefc;
     }
+
     body{
-      font-family: "Space Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(1000px 600px at 10% 10%, rgba(244,194,27,.20), transparent 60%),
-        radial-gradient(900px 600px at 90% 20%, rgba(44,140,255,.14), transparent 55%),
-        radial-gradient(900px 600px at 50% 90%, rgba(153,95,255,.12), transparent 60%),
-        #f7f8fb;
-      padding-top: 96px;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, "Apple Color Emoji", "Segoe UI Emoji";
     }
 
-    .navbar{
-      background: transparent !important;
-    }
-    .orbital-nav{
-      padding: .5rem 0;
-      position: fixed;
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ color: inherit; text-decoration: none; }
+
+    /* =========================
+       TOP NAV (International)
+    ========================== */
+    .topbar{
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
       z-index: 1030;
+      backdrop-filter: blur(10px);
     }
-    .nav-shell{
-      position: relative;
-      border-radius: 999px;
-      background: rgba(255,255,255,.78);
-      border: 1px solid rgba(15,23,42,.12);
-      box-shadow: 0 16px 44px rgba(15,23,42,.14);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      overflow: hidden;
+    .brand{
+      display:flex; align-items:center; gap:10px;
     }
-    .nav-shell::before{
-      content:"";
-      position:absolute;
-      inset:-10px;
-      border-radius:999px;
-      background:
-        radial-gradient(160px 120px at 15% 50%, rgba(244,194,27,.35), transparent 70%),
-        radial-gradient(200px 140px at 85% 50%, rgba(0,123,255,.20), transparent 70%);
-      filter: blur(10px);
-      opacity:.65;
-      z-index:0;
-      pointer-events:none;
+    .brand-badge{
+      width:38px; height:38px; border-radius:12px;
+      display:grid; place-items:center;
+      background: rgba(13,110,253,.12);
+      border: 1px solid rgba(13,110,253,.18);
+      color: var(--brand-2);
     }
-    .nav-shell > *{
-      position: relative;
-      z-index: 1;
+    .brand-title{
+      font-weight: 900;
+      letter-spacing: .2px;
+      line-height: 1.1;
     }
-    .brand-orb{
-      padding: .4rem .8rem;
-    }
-    .brand-orb img{
-      border-radius: 50%;
-      box-shadow: 0 6px 12px rgba(0,0,0,.25);
-    }
-    .nav-orb{
-      display: inline-flex;
-      align-items: center;
-      gap: .55rem;
-      padding: .42rem 1rem .42rem .55rem;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-weight: 600;
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
-    }
-    .orb-icon{
-      width: 36px; height: 36px;
-      display: grid; place-items: center;
-      border-radius: 50%;
-      background: rgba(244,194,27,.18);
-      border: 1px solid rgba(244,194,27,.38);
-      color: #8a5c00;
-      flex: 0 0 auto;
-    }
-    .nav-orb:hover,
-    .nav-orb:focus{
-      background: rgba(244,194,27,.16);
-      border-color: rgba(244,194,27,.45);
-      box-shadow: 0 10px 22px rgba(244,194,27,.2);
-      transform: translateY(-1px);
-      color: #0b1220 !important;
-    }
-    .navbar-nav .nav-link.active{
-      background: rgba(15,23,42,.08);
-      border-color: rgba(15,23,42,.18);
-      color: #0b1220 !important;
-    }
-    .navbar-toggler{
-      border-radius: 999px;
-      border: 1px solid rgba(15,23,42,.12);
-      padding: .45rem .7rem;
-    }
-    .dropdown-menu{
-      border-radius: 16px;
-      border: 1px solid rgba(15,23,42,.1);
-      box-shadow: 0 16px 40px rgba(15,23,42,.15);
+    .brand-sub{
+      font-size: .85rem; color: var(--muted);
+      margin-top: -2px;
     }
 
-    /* HERO (custom background — not from the source site) */
-    .hero{
-      position: relative;
+    .nav-pill{
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      display:inline-flex; align-items:center; gap:8px;
+      font-weight: 700;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .nav-pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(13,110,253,.25);
+      background: rgba(13,110,253,.07);
+    }
+
+    .search-wrap{
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      border-radius: 999px;
+      padding: 6px 10px;
+      display:flex; align-items:center; gap:8px;
+      min-width: 260px;
+    }
+    .search-wrap input{
+      border: none; outline: none;
+      background: transparent;
+      width: 100%;
+      color: var(--text);
+    }
+    .search-wrap input::placeholder{ color: rgba(15,23,42,.45); }
+    html[data-theme="dark"] .search-wrap input::placeholder{ color: rgba(232,238,252,.45); }
+
+    .icon-btn{
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 800;
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .icon-btn:hover{
+      border-color: rgba(13,110,253,.28);
+      background: rgba(13,110,253,.07);
+    }
+
+    /* =========================
+       NEWS TICKER (Header)
+    ========================== */
+    .news-ticker{
       overflow: hidden;
-      border-radius: 1.25rem;
-      background:
-        radial-gradient(900px 500px at 15% 30%, rgba(244,194,27,.55), transparent 55%),
-        radial-gradient(900px 500px at 85% 40%, rgba(0,123,255,.35), transparent 55%),
-        linear-gradient(135deg, #0b1220 0%, #111b33 45%, #0b1220 100%);
-      color: #fff;
+      background: var(--ticker-bg);
+      color: var(--ticker-text);
+      padding: 10px 0;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .news-track{
+      display: inline-flex;
+      white-space: nowrap;
+      will-change: transform;
+      animation: scroll 28s linear infinite;
+      align-items:center;
+    }
+
+    .news-ticker:hover .news-track{ animation-play-state: paused; }
+
+    .news-item{
+      margin-right: 50px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .news-item span{
+      color: var(--accent);
+      margin-right: 6px;
+    }
+
+    .ticker-dot{
+      width:6px; height:6px; border-radius:50%;
+      background: rgba(255,255,255,.28);
+    }
+    html[data-theme="light"] .ticker-dot{ background: rgba(255,255,255,.35); }
+
+    @keyframes scroll{
+      from { transform: translateX(20%); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* =========================
+       LAYOUT + SECTIONS
+    ========================== */
+    .page{
+      padding: 18px 0 38px;
+    }
+
+    .section-title{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin: 10px 0 14px;
+    }
+    .section-title h4{
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: .2px;
+    }
+    .section-title .hint{
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    /* =========================
+       HERO FEATURE (International)
+    ========================== */
+    .hero{
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(13,110,253,.08), transparent 60%), var(--surface);
+      border-radius: 18px;
+      overflow: hidden;
       box-shadow: var(--shadow);
     }
-    .hero::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(450px 260px at 25% 35%, rgba(255,255,255,.18), transparent 60%),
-        radial-gradient(450px 260px at 75% 55%, rgba(255,255,255,.10), transparent 60%);
-      pointer-events:none;
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 0;
     }
+    @media (max-width: 992px){
+      .hero-grid{ grid-template-columns: 1fr; }
+    }
+
+    .hero-main{
+      padding: 18px;
+      border-right: 1px solid var(--border);
+    }
+    @media (max-width: 992px){
+      .hero-main{ border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
     .hero-card{
-      background: var(--glass);
-      border: 1px solid var(--stroke);
-      border-radius: 1rem;
-      box-shadow: 0 12px 40px rgba(0,0,0,.25);
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
     }
+    .hero-img{
+      height: 320px;
+      width: 100%;
+      object-fit: cover;
+      background: #e5e7eb;
+    }
+    html[data-theme="dark"] .hero-img{ background: rgba(255,255,255,.08); }
+
     .badge-soft{
-      background: rgba(244,194,27,.18);
-      color: #ffe08a;
-      border: 1px solid rgba(244,194,27,.35);
+      display:inline-flex; align-items:center; gap:8px;
+      font-weight: 900;
+      font-size: .78rem;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(13,110,253,.22);
+      background: rgba(13,110,253,.10);
+      color: var(--brand-2);
     }
 
-    .section{
-      padding: 72px 0;
+    .headline{
+      font-weight: 950;
+      font-size: 1.7rem;
+      line-height: 1.15;
+      margin: 12px 0 10px;
+      letter-spacing: .1px;
+    }
+    .subline{ color: var(--muted); font-size: 1.02rem; margin-bottom: 12px; }
+
+    .meta-row{
+      display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: .92rem;
+    }
+    .meta-row i{ color: var(--brand); }
+
+    .hero-side{
+      padding: 16px;
     }
 
-    .card-soft{
-      border: 1px solid rgba(15,23,42,.08);
-      border-radius: 1.25rem;
-      box-shadow: 0 10px 30px rgba(15,23,42,.06);
-    }
-
-    .icon-bubble{
-      width: 46px; height: 46px;
-      display: grid; place-items: center;
+    .mini-story{
+      display:flex; gap:12px;
+      padding: 10px;
       border-radius: 14px;
-      background: rgba(244,194,27,.16);
-      border: 1px solid rgba(244,194,27,.26);
-      color: #9a6b00;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .mini-story:hover{
+      transform: translateY(-2px);
+      border-color: rgba(13,110,253,.25);
+    }
+    .mini-img{
+      width: 90px;
+      height: 72px;
+      border-radius: 12px;
+      object-fit: cover;
+      background:#e5e7eb;
       flex: 0 0 auto;
     }
+    html[data-theme="dark"] .mini-img{ background: rgba(255,255,255,.08); }
 
-    .brand-line{
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(15,23,42,.16), transparent);
+    .mini-title{
+      font-weight: 900;
+      line-height: 1.2;
+      margin: 2px 0 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
+    .mini-meta{ color: var(--muted); font-size: .85rem; font-weight: 700; }
 
-    .logo-strip img{
-      max-height: 42px;
-      width: auto;
-      filter: grayscale(100%);
-      opacity: .9;
-      transition: .2s ease;
+    /* =========================
+       MAIN NEWS GRID (International)
+    ========================== */
+    .news-card{
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 16px;
+      overflow: hidden;
+      height: 100%;
+      box-shadow: 0 10px 26px rgba(2,6,23,.06);
+      transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
     }
-    .logo-strip img:hover{
-      filter: none;
-      opacity: 1;
-      transform: translateY(-2px);
+    .news-card:hover{
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: rgba(13,110,253,.25);
     }
-
-    .img-cover{
-      width:100%;
-      height: 230px;
+    .news-img{
+      width: 100%;
+      height: 170px;
       object-fit: cover;
-      border-top-left-radius: 1.25rem;
-      border-top-right-radius: 1.25rem;
-      background: #e9ecef;
+      background:#e5e7eb;
+    }
+    html[data-theme="dark"] .news-img{ background: rgba(255,255,255,.08); }
+
+    .news-body{ padding: 14px 14px 12px; }
+    .news-title{
+      font-weight: 950;
+      line-height: 1.22;
+      font-size: 1.03rem;
+      margin: 10px 0 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.55em;
+    }
+    .news-desc{
+      color: var(--muted);
+      font-size: .95rem;
+      margin: 0 0 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.45em;
+    }
+    .news-foot{
+      padding: 0 14px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: .88rem;
     }
 
-    .cta{
-      background: linear-gradient(135deg, rgba(244,194,27,.18), rgba(0,123,255,.10));
-      border: 1px solid rgba(15,23,42,.08);
-      border-radius: 1.25rem;
-      box-shadow: 0 10px 30px rgba(15,23,42,.06);
+    .btn-read{
+      border-radius: 12px;
+      font-weight: 900;
+      padding: 8px 12px;
     }
 
+    /* =========================
+       RIGHT SIDEBAR (col-lg-4)
+    ========================== */
+    .sidebar-sticky{
+      position: sticky;
+      top: 92px; /* topbar + ticker */
+      align-self: flex-start;
+    }
+    @media (max-width: 992px){
+      .sidebar-sticky{ position: static; top: auto; }
+    }
+
+    .panel{
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 10px 26px rgba(2,6,23,.06);
+    }
+    .panel + .panel{ margin-top: 14px; }
+
+    .panel-title{
+      font-weight: 950;
+      margin-bottom: 10px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .panel-title small{ color: var(--muted); font-weight: 800; }
+
+    /* Subscribe */
+    .subscribe-box{
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px dashed rgba(13,110,253,.35);
+      background: linear-gradient(180deg, rgba(13,110,253,.08), transparent 70%);
+    }
+    .subscribe-text{ color: var(--muted); font-weight: 700; }
+
+    /* Old news list */
+    .old-item{
+      display:flex; gap:12px;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .old-item:hover{
+      transform: translateY(-2px);
+      border-color: rgba(13,110,253,.22);
+    }
+    .old-img{
+      width: 68px; height: 56px;
+      border-radius: 12px;
+      object-fit: cover;
+      background:#e5e7eb;
+      flex: 0 0 auto;
+    }
+    html[data-theme="dark"] .old-img{ background: rgba(255,255,255,.08); }
+
+    .old-title{
+      font-weight: 900;
+      line-height: 1.2;
+      margin: 0 0 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .old-meta{ color: var(--muted); font-size: .83rem; font-weight: 800; }
+
+    /* Quick categories */
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      font-weight: 900;
+      color: var(--text);
+      margin: 6px 6px 0 0;
+    }
+    .chip i{ color: var(--brand); }
+
+    /* Footer */
     footer{
-      border-top: 1px solid rgba(15,23,42,.08);
-      background: rgba(255,255,255,.70);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      padding: 22px 0;
+      margin-top: 20px;
     }
 
-    .btn-brand{
-      background: var(--brand);
-      border-color: var(--brand);
-      color: #1b1b1b;
-      font-weight: 800;
-    }
-    .btn-brand:hover{
-      background: #e7b10a;
-      border-color: #e7b10a;
-      color: #111;
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce){
+      .news-track{ animation: none !important; }
     }
 
-    @media (max-width: 991.98px){
-      .nav-shell{
-        border-radius: 24px;
-      }
-      body{
-        padding-top: 120px;
-      }
-      .navbar-collapse{
-        padding-top: .75rem;
-      }
-      .nav-orb{
-        width: 100%;
-        justify-content: flex-start;
-      }
-    }
+    /* === Compact Nav Pills === */
+.nav-pill{
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 10px;          /* 🔽 smaller */
+  display:inline-flex;
+  align-items:center;
+  gap:6px;                    /* 🔽 tighter */
+  font-weight: 800;
+  font-size: .85rem;          /* 🔽 smaller text */
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
+  cursor: pointer;
+}
+
+.nav-pill i{
+  font-size: .95rem;
+}
+
+/* Dropdown menu styling */
+.dropdown-menu{
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 8px;
+  min-width: 200px;
+}
+
+.dropdown-item{
+  font-weight: 800;
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+.dropdown-item:hover{
+  background: rgba(13,110,253,.10);
+  color: var(--brand-2);
+}
+
+/* Ensure dropdown appears over ticker */
+.topbar{
+  position: relative;
+  z-index: 1035;
+}
+
+/* ===== Responsive Logo ===== */
+.brand-logo{
+  height: 44px;          /* desktop default */
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.brand-text{
+  line-height: 1.1;
+}
+
+/* Tablet */
+@media (max-width: 992px){
+  .brand-logo{
+    height: 38px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px){
+  .brand-logo{
+    height: 32px;
+  }
+  .brand-sub{
+    display: none;   /* cleaner header on small screens */
+  }
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #088c16;
+    border-color: #009002;
+}
+.active>.page-link, .page-link.active {
+    z-index: 3;
+    color: var(--bs-pagination-active-color);
+    background-color: #088c16;
+    border-color: #009002;
+}
+.page-link {
+    color: #088c16;
+}
+.btn-outline-primary {
+    --bs-btn-color: #088c16;
+    --bs-btn-border-color: #088c16;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #088c16;
+    --bs-btn-hover-border-color: #088c16;
+    --bs-btn-focus-shadow-rgb: 13, 110, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #088c16;
+    --bs-btn-active-border-color: #088c16;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #088c16;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #088c16;
+    --bs-gradient: none;
+}
   </style>
 </head>
 
-<body data-bs-spy="scroll" data-bs-target="#topnav" data-bs-smooth-scroll="true" tabindex="0">
+<body>
 
-  <!-- NAV -->
-  <nav id="topnav" class="navbar navbar-expand-lg sticky-top orbital-nav">
-    <div class="container nav-shell py-2">
-      <a class="navbar-brand d-flex align-items-center gap-2 fw-bold brand-orb" href="#home">
-        <img
-          src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/02/cropped-Abanoub_favi.png.png"
-          alt="Company Logo" width="34" height="34"
-        >
-        <span>General Trading</span>
-      </a>
+  <!-- TOP BAR -->
+  <div class="topbar">
+  <div class="container py-2"> <!-- 🔽 slightly smaller padding -->
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <a class="brand d-flex align-items-center gap-2" href="#">
+  <img 
+    src="logo.png" 
+    alt="Wahid Business News" 
+    class="brand-logo img-fluid"
+  />
+</a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navlinks"
-              aria-controls="navlinks" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
 
-      <div class="collapse navbar-collapse" id="navlinks">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-          <li class="nav-item">
-            <a class="nav-link nav-orb" href="#home">
-              <span class="orb-icon"><i class="bi bi-house-door"></i></span>
-              <span>Home</span>
-            </a>
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+
+        <!-- ✅ NAV ULs (compact + working dropdowns) -->
+        <ul class="navbar-nav flex-row flex-wrap gap-2 align-items-center m-0 p-0" style="list-style:none;">
+
+          <li>
+            <a class="nav-pill" href="#"><i class="bi bi-house"></i> Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link nav-orb" href="#offer">
-              <span class="orb-icon"><i class="bi bi-box-seam"></i></span>
-              <span>Products</span>
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link nav-orb dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <span class="orb-icon"><i class="bi bi-geo-alt"></i></span>
-              <span>Branches</span>
+
+          <!-- Vehicles Dropdown -->
+          <li class="dropdown">
+            <a class="nav-pill dropdown-toggle"
+               href="#"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
+              <i class="bi bi-truck"></i> Vehicles
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#contact">🇷🇼 KIGALI – RWANDA</a></li>
-              <li><a class="dropdown-item" href="#contact">🇹🇿 DARESALAM – TANZANIA</a></li>
-              <li><a class="dropdown-item" href="#contact">🇰🇪 NAIROBI – KENYA</a></li>
-              <li><a class="dropdown-item" href="#contact">🇺🇬 KAMPALA – UGANDA</a></li>
-              <li><a class="dropdown-item" href="#contact">🇨🇩 GOMA – DRC</a></li>
-              <li><a class="dropdown-item" href="#contact">🇧🇮 BUJUMBRA – BURUNDI</a></li>
-              <li><a class="dropdown-item" href="#contact">🇿🇲 LUSAKA – ZAMBIA</a></li>
-              <li><a class="dropdown-item" href="#contact">🇬🇭 ACCRA – GHANA</a></li>
-              <li><a class="dropdown-item" href="#contact">🇧🇫 OUAGADOUGOU – BURKINA FASO</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-truck-front me-2"></i> Trucks</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-gear-wide-connected me-2"></i> Machineries</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-car-front-fill me-2"></i> Cars</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-lightning-charge-fill me-2"></i> Electric Vehicle</a></li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link nav-orb" href="#about">
-              <span class="orb-icon"><i class="bi bi-info-circle"></i></span>
-              <span>About Us</span>
-            </a>
+
+          <!-- Construction & Mining -->
+          <li>
+            <a class="nav-pill" href="#"><i class="bi bi-cone-striped"></i> Construction &amp; Mining</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link nav-orb" href="#contact">
-              <span class="orb-icon"><i class="bi bi-envelope"></i></span>
-              <span>Contact Us</span>
+
+          <!-- Banks & Financial Dropdown -->
+          <li class="dropdown">
+            <a class="nav-pill dropdown-toggle"
+               href="#"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
+              <i class="bi bi-bank"></i> Banks &amp; Financial
             </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-newspaper me-2"></i> News</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-journal-text me-2"></i> Regulations</a></li>
+            </ul>
           </li>
+
+          <!-- Logistics & Transport Dropdown -->
+          <li class="dropdown">
+            <a class="nav-pill dropdown-toggle"
+               href="#"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
+              <i class="bi bi-truck-flatbed"></i> Logistics &amp; Transport
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-newspaper me-2"></i> News</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-journal-text me-2"></i> Regulations</a></li>
+            </ul>
+          </li>
+
+          <!-- Resources -->
+          <li>
+            <a class="nav-pill" href="#"><i class="bi bi-folder2-open"></i> Resources</a>
+          </li>
+
         </ul>
-      </div>
-    </div>
-  </nav>
+        <!-- ✅ END NAV -->
 
-  <!-- HERO (custom background; no sourced hero image) -->
-  <header id="home" class="container mt-4" data-aos="fade-up" data-aos-duration="900">
-    <div class="hero p-4 p-md-5">
-      <div class="row g-4 align-items-center position-relative">
-        <div class="col-lg-7" data-aos="fade-right" data-aos-duration="900">
-          <span class="badge badge-soft rounded-pill px-3 py-2 mb-3">
-            Importer • Distributor • Regional Supply
-          </span>
-
-          <h1 class="display-5 fw-bold mb-3">
-            Welcome to Abanoub Global Investment Limited Company
-          </h1>
-
-          <p class="lead text-white-50 mb-4">
-            East Africa based importer and distributor of wide variety of FMCG products,
-            cosmetics, household appliances, vehicles and parts.
-          </p>
-
-          <div class="d-flex flex-wrap gap-2">
-            <a class="btn btn-brand btn-lg" href="#offer">
-              Explore Products <i class="bi bi-arrow-right ms-1"></i>
-            </a>
-            <a class="btn btn-outline-light btn-lg" href="#contact">
-              Get a Quote <i class="bi bi-envelope ms-1"></i>
-            </a>
-          </div>
-
-          <div class="brand-line my-4"></div>
-
-          <div class="row g-3">
-            <div class="col-md-4">
-              <div class="d-flex gap-3">
-                <div class="icon-bubble"><i class="bi bi-globe2"></i></div>
-                <div>
-                  <div class="fw-bold">Regional Reach</div>
-                  <div class="text-white-50 small">Major East African markets</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="d-flex gap-3">
-                <div class="icon-bubble"><i class="bi bi-box-seam"></i></div>
-                <div>
-                  <div class="fw-bold">Wide Categories</div>
-                  <div class="text-white-50 small">FMCG, Petroleum, Vehicles</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="d-flex gap-3">
-                <div class="icon-bubble"><i class="bi bi-shield-check"></i></div>
-                <div>
-                  <div class="fw-bold">Trusted Supply</div>
-                  <div class="text-white-50 small">Quality & customer focus</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-5" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
-          <div class="hero-card p-4">
-            <div class="d-flex align-items-center justify-content-between mb-3">
-              <div class="fw-bold">Quick Contact</div>
-              <span class="badge bg-success-subtle text-success border border-success-subtle">Open</span>
-            </div>
-
-            <div class="d-grid gap-2">
-              <a class="btn btn-outline-light text-start" href="tel:+250733335959">
-                <i class="bi bi-telephone-fill me-2"></i> +250 733 335 959
-              </a>
-              <a class="btn btn-outline-light text-start" href="tel:+250784151425">
-                <i class="bi bi-telephone-fill me-2"></i> +250 784 151 425
-              </a>
-              <a class="btn btn-outline-light text-start" href="mailto:info@abanoubglobal.com">
-                <i class="bi bi-envelope-fill me-2"></i> info@abanoubglobal.com
-              </a>
-              <div class="small text-white-50 mt-2">
-                <i class="bi bi-geo-alt me-1"></i>
-                3rd Floor, YYUSSA Plaza, Remera 4 KG 11 Avenue, Kigali, Rwanda
-              </div>
-              <div class="small text-white-50">
-                <i class="bi bi-clock me-1"></i>
-                Open 8am–6pm (M–F), 8am–1pm (Sat)
-              </div>
-            </div>
-
-            <hr class="border-light opacity-25 my-4">
-
-            <div class="d-flex gap-2">
-              <a class="btn btn-brand w-100" href="#contact"><i class="bi bi-send-fill me-1"></i> Inquire Now</a>
-              <a class="btn btn-outline-light w-100" href="#partners"><i class="bi bi-people-fill me-1"></i> Partners</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- ABOUT -->
-  <section id="about" class="section" data-aos="fade-up" data-aos-duration="900">
-    <div class="container">
-      <div class="row align-items-center g-4">
-        <div class="col-lg-6" data-aos="zoom-in" data-aos-duration="900">
-          <div class="card card-soft overflow-hidden">
-            <img
-              class="img-cover"
-              src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/03/Diesel.jpg"
-              alt="Trading & logistics"
-              onerror="this.style.display='none'"
-            >
-            <div class="card-body p-4 p-md-5">
-              <h2 class="fw-bold mb-2">Since 2005</h2>
-              <p class="text-secondary mb-0">
-                ABANOUB General Trading has been in business since 2005 as importer and distributor of wide variety of
-                products with operations in major East African markets.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6" data-aos="fade-left" data-aos-duration="900">
-          <div class="mb-3">
-            <span class="badge text-bg-dark-subtle border">About Us</span>
-          </div>
-          <h2 class="fw-bold mb-3">About Us</h2>
-          <p class="text-secondary">
-            The company specializes in the import, export, and distribution of products that are essentially needed by our
-            consumers ranging from different food products like rice, sugar, salt, spaghetti, cooking oil and different
-            nonalcoholic drinks and alcoholic beverages like wine, liquor, and beer, to mention but a few.
-            The company has a plan to expand its product range in the near future.
-          </p>
-
-          <div class="row g-3 mt-1">
-            <div class="col-md-4" data-aos="fade-up" data-aos-duration="800">
-              <div class="card card-soft h-100">
-                <div class="card-body">
-                  <div class="icon-bubble mb-3"><i class="bi bi-eye-fill"></i></div>
-                  <div class="fw-bold mb-2">Vision</div>
-                  <div class="text-secondary small">
-                    To be a leading Importer & Exporter of quality, affordable, and customer-oriented products to the local,
-                    regional and global markets.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-              <div class="card card-soft h-100">
-                <div class="card-body">
-                  <div class="icon-bubble mb-3"><i class="bi bi-flag-fill"></i></div>
-                  <div class="fw-bold mb-2">Mission</div>
-                  <div class="text-secondary small">
-                    Offer quality products, create a rewarding work environment, and contribute to community wellbeing as we grow.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-              <div class="card card-soft h-100">
-                <div class="card-body">
-                  <div class="icon-bubble mb-3"><i class="bi bi-gem"></i></div>
-                  <div class="fw-bold mb-2">Values</div>
-                  <div class="text-secondary small">
-                    Customer satisfaction based on integrity, superior quality, and passion for excellence and value.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="cta p-4 mt-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="150">
-            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
-              <div>
-                <div class="fw-bold">We are more than just an importer!</div>
-                <div class="text-secondary small">
-                  We represent great brands and develop private ones for our clients and markets.
-                </div>
-              </div>
-              <a class="btn btn-brand" href="#contact"><i class="bi bi-lightning-charge-fill me-1"></i> Request a Quote</a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHAT WE OFFER -->
-  <section id="offer" class="section pt-0" data-aos="fade-up" data-aos-duration="900">
-    <div class="container">
-      <div class="text-center mb-4">
-        <span class="badge text-bg-dark-subtle border">Products</span>
-        <h2 class="fw-bold mt-2">What We Offer</h2>
-        <p class="text-secondary mb-0">
-          Food stuff, beverages, petroleum, vehicles & parts — sourced and distributed for regional markets.
-        </p>
-      </div>
-
-      <div class="row g-3">
-        <div class="col-md-4" data-aos="fade-up" data-aos-duration="800">
-          <div class="card card-soft h-100">
-            <div class="card-body p-4">
-              <div class="d-flex gap-3">
-                <div class="icon-bubble"><i class="bi bi-basket2-fill"></i></div>
-                <div>
-                  <div class="fw-bold">Food Stuff</div>
-                  <div class="text-secondary small">
-                    We supply a range of food stuff products including grains and packed food items.
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <div class="small text-secondary">
-                <i class="bi bi-check2-circle me-1"></i> Grains & packed foods<br>
-                <i class="bi bi-check2-circle me-1"></i> Wholesale & distribution
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-          <div class="card card-soft h-100">
-            <div class="card-body p-4">
-              <div class="d-flex gap-3">
-                <div class="icon-bubble"><i class="bi bi-cup-straw"></i></div>
-                <div>
-                  <div class="fw-bold">Beverages</div>
-                  <div class="text-secondary small">
-                    We supply a wide variety of beverages, alcoholic and non-alcoholic: beers, juice, energy drinks,
-                    alcopops, wines and other liquors.
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <img
-                src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2020/08/4-goblets-beer-png-image.png"
-                alt="Beverages"
-                class="img-fluid"
-                style="max-height:140px"
-                onerror="this.style.display='none'"
-              >
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-          <div class="card card-soft h-100">
-            <div class="card-body p-4">
-              <div class="d-flex gap-3">
-                <div class="icon-bubble"><i class="bi bi-truck-front-fill"></i></div>
-                <div>
-                  <div class="fw-bold">Vehicles & Parts</div>
-                  <div class="text-secondary small">
-                    We are a reliable supplier of heavy duty vehicles and spare parts for transport, construction and other applications.
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <div class="small text-secondary">
-                <i class="bi bi-check2-circle me-1"></i> Heavy duty supply<br>
-                <i class="bi bi-check2-circle me-1"></i> Parts & distribution support
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Featured (from homepage texts) -->
-      <div class="row g-3 mt-3">
-        <div class="col-lg-4" data-aos="zoom-in" data-aos-duration="800">
-          <div class="card card-soft h-100 overflow-hidden">
-            <img class="img-cover" src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/03/Diesel.jpg" alt="Petroleum" onerror="this.style.display='none'">
-            <div class="card-body p-4">
-              <div class="fw-bold mb-1">Petroleum</div>
-              <div class="text-secondary small">
-                LNG (Liquefied Natural Gas) is primarily methane cooled to liquid form for easier storage and transport.
-                LPG (Liquefied Petroleum Gas), a mix of propane and butane, is widely used for cooking, heating etc.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="100">
-          <div class="card card-soft h-100 overflow-hidden">
-            <!-- Rice.avif exists on the source site; browsers that support AVIF will show it -->
-            <picture>
-              <source srcset="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/03/Rice.avif" type="image/avif">
-              <img class="img-cover" src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/03/Rice.avif" alt="Rice">
-            </picture>
-            <div class="card-body p-4">
-              <div class="fw-bold mb-1">Rice</div>
-              <div class="text-secondary small">
-                We supply Pakistani and India rice packed in different sizes
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="200">
-          <div class="card card-soft h-100 overflow-hidden">
-            <img class="img-cover" src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2020/12/PHOTO-2020-12-02-17-44-55.png" alt="Ayzen Sunflower Oil" onerror="this.style.display='none'">
-            <div class="card-body p-4">
-              <div class="fw-bold mb-1">Ayzen Sunflower Oil</div>
-              <div class="text-secondary small">
-                Sunflower oil from Turkey in packages of 5L, 3L and 1L.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SPECIALTY LIST (from products page texts) -->
-  <section id="specialty" class="section pt-0" data-aos="fade-up" data-aos-duration="900">
-    <div class="container">
-      <div class="row g-4 align-items-center">
-        <div class="col-lg-6" data-aos="fade-right" data-aos-duration="900">
-          <span class="badge text-bg-dark-subtle border">Our Specialty Foodstuff</span>
-          <h2 class="fw-bold mt-2 mb-3">Reliable supply for everyday essentials</h2>
-          <p class="text-secondary mb-0">
-            From grains and sugar to wheat flour and natural juice drinks, we support wholesalers, retailers, and partners
-            with consistent distribution.
-          </p>
-
-          <div class="row g-3 mt-3">
-            <div class="col-md-6" data-aos="fade-up" data-aos-duration="800">
-              <div class="card card-soft h-100">
-                <div class="card-body">
-                  <div class="fw-bold">Sunshine Rice</div>
-                  <div class="text-secondary small">We supply Pakistani and India rice packed in different sizes.</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-              <div class="card card-soft h-100">
-                <div class="card-body">
-                  <div class="fw-bold">Sunshine Sugar</div>
-                  <div class="text-secondary small">We supply white, brown, and industrial sugar from Brazil & India.</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-              <div class="card card-soft h-100">
-                <div class="card-body">
-                  <div class="fw-bold">Sunshine Wheat Flour</div>
-                  <div class="text-secondary small">Our varieties range from bakery to pastry by grades and uses.</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
-              <div class="card card-soft h-100">
-                <div class="card-body">
-                  <div class="fw-bold">Nawon Juice</div>
-                  <div class="text-secondary small">We supply natural juice drinks in different packs and sizes.</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12" data-aos="fade-up" data-aos-duration="800" data-aos-delay="150">
-              <div class="card card-soft">
-                <div class="card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2">
-                  <div>
-                    <div class="fw-bold">Corn Flour</div>
-                    <div class="text-secondary small">Our corn flour varieties range by origin, brand, grades and uses.</div>
-                  </div>
-                  <a class="btn btn-brand" href="#contact"><i class="bi bi-file-earmark-text me-1"></i> Get a Quote</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6" data-aos="fade-left" data-aos-duration="900" data-aos-delay="100">
-          <div class="card card-soft overflow-hidden">
-            <div class="card-body p-0">
-              <div class="p-4 p-md-5">
-                <div class="d-flex align-items-center gap-3 mb-3">
-                  <img src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/02/cropped-Abanoub_favi.png.png"
-                       alt="Logo" width="42" height="42" style="border-radius:12px">
-                  <div>
-                    <div class="fw-bold">Building Success Through Partnership!</div>
-                    <div class="text-secondary small">Wholesale • Retail • Distribution • Private Brands</div>
-                  </div>
-                </div>
-
-                <div class="row g-3">
-                  <div class="col-6" data-aos="zoom-in" data-aos-duration="800">
-                    <div class="card card-soft h-100">
-                      <div class="card-body">
-                        <div class="icon-bubble mb-2"><i class="bi bi-clipboard-check"></i></div>
-                        <div class="fw-bold">Quality First</div>
-                        <div class="text-secondary small">Affordable and customer-oriented products.</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-6" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="100">
-                    <div class="card card-soft h-100">
-                      <div class="card-body">
-                        <div class="icon-bubble mb-2"><i class="bi bi-diagram-3-fill"></i></div>
-                        <div class="fw-bold">Distribution</div>
-                        <div class="text-secondary small">Efficient networks for regional markets.</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12" data-aos="fade-up" data-aos-duration="800" data-aos-delay="150">
-                    <div class="cta p-4">
-                      <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-2">
-                        <div>
-                          <div class="fw-bold">Ready to partner?</div>
-                          <div class="text-secondary small">Visit our office for business partnerships, or inquire online.</div>
-                        </div>
-                        <a class="btn btn-brand" href="#contact"><i class="bi bi-chat-right-text-fill me-1"></i> Contact Us</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- PARTNERS -->
-  <section id="partners" class="section pt-0" data-aos="fade-up" data-aos-duration="900">
-    <div class="container">
-      <div class="text-center mb-4">
-        <span class="badge text-bg-dark-subtle border">Partners</span>
-        <h2 class="fw-bold mt-2">Building Success Through Partnership!</h2>
-      </div>
-
-      <div class="card card-soft" data-aos="zoom-in" data-aos-duration="900">
-        <div class="card-body p-4 p-md-5">
-          <div class="logo-strip d-flex flex-wrap align-items-center justify-content-center gap-4">
-            <img src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/02/molly_logo.webp" alt="Partner logo 1">
-            <img src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/02/GEPA-Logo-new-1.png" alt="Partner logo 2">
-            <img src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/02/logo.png" alt="Partner logo 3">
-            <img src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/02/Logotipo-Foodibev-2018.png" alt="Partner logo 4">
-            <img src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/02/logo-NEW.png" alt="Partner logo 5">
-          </div>
-
-          <div class="brand-line my-4"></div>
-
-          <div class="row g-3 text-center">
-            <div class="col-md-4">
-              <div class="fw-bold">Brands</div>
-              <div class="text-secondary small">
-                We represent great brands and develop private ones for our clients and markets in an effort to respond to
-                specific requirements of our valued customers.
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="fw-bold">Reliability</div>
-              <div class="text-secondary small">
-                Consistent supply and distribution support for partners across markets.
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="fw-bold">Growth</div>
-              <div class="text-secondary small">
-                Expanding product range and partnership footprint.
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="section pt-0" data-aos="fade-up" data-aos-duration="900">
-    <div class="container">
-      <div class="text-center mb-4">
-        <span class="badge text-bg-dark-subtle border">Contact</span>
-        <h2 class="fw-bold mt-2">Visit The Store or Get In Touch</h2>
-        <p class="text-secondary mb-0">Inquire online for distribution, business partnerships, wholesale or retail.</p>
-      </div>
-
-      <div class="row g-3">
-        <div class="col-lg-5" data-aos="fade-right" data-aos-duration="900">
-          <div class="card card-soft h-100">
-            <div class="card-body p-4 p-md-5">
-              <div class="d-flex align-items-center gap-3 mb-3">
-                <img
-                  src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/02/cropped-Abanoub_favi.png.png"
-                  alt="Logo" width="44" height="44" style="border-radius:14px"
-                >
-                <div>
-                  <div class="fw-bold">Come Visit us!</div>
-                  <div class="text-secondary small">Or inquire online</div>
-                </div>
-              </div>
-
-              <div class="d-grid gap-2">
-                <a class="btn btn-outline-dark text-start" href="tel:+250733335959">
-                  <i class="bi bi-telephone-fill me-2"></i> +250 733 335 959
-                </a>
-                <a class="btn btn-outline-dark text-start" href="tel:+250784151425">
-                  <i class="bi bi-telephone-fill me-2"></i> +250 784 151 425
-                </a>
-                <a class="btn btn-outline-dark text-start" href="mailto:info@abanoubglobal.com">
-                  <i class="bi bi-envelope-fill me-2"></i> info@abanoubglobal.com
-                </a>
-              </div>
-
-              <div class="mt-3 text-secondary small">
-                <div class="mb-2"><i class="bi bi-geo-alt me-1"></i> 3rd Floor, YYUSSA Plaza, Remera 4 KG 11 Avenue, Kigali, Rwanda</div>
-                <div><i class="bi bi-clock me-1"></i> Open 8am–6pm M–F, 8am–1pm Saturdays</div>
-              </div>
-
-              <hr class="my-4">
-
-              <div class="d-flex gap-2">
-                <a class="btn btn-dark w-100" href="https://www.facebook.com" target="_blank" rel="noopener">
-                  <i class="bi bi-facebook me-1"></i> Follow
-                </a>
-                <a class="btn btn-dark w-100" href="https://x.com" target="_blank" rel="noopener">
-                  <i class="bi bi-twitter-x me-1"></i> Follow
-                </a>
-                <a class="btn btn-dark w-100" href="https://www.instagram.com" target="_blank" rel="noopener">
-                  <i class="bi bi-instagram me-1"></i> Follow
-                </a>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-7" data-aos="fade-left" data-aos-duration="900" data-aos-delay="100">
-          <div class="card card-soft">
-            <div class="card-body p-4 p-md-5">
-              <h5 class="fw-bold mb-3">Send Us an Email</h5>
-
-              <!-- Frontend-only form (no backend). Plug into your API later -->
-              <form class="row g-3" onsubmit="event.preventDefault(); toast('Message sent (demo). Hook this to your backend.');">
-                <div class="col-md-6">
-                  <label class="form-label">Name</label>
-                  <input class="form-control" placeholder="Your name" required>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Email Address</label>
-                  <input type="email" class="form-control" placeholder="you@email.com" required>
-                </div>
-                <div class="col-12">
-                  <label class="form-label">Message</label>
-                  <textarea class="form-control" rows="5" placeholder="Tell us what you need..." required></textarea>
-                </div>
-                <div class="col-12 d-flex gap-2">
-                  <button class="btn btn-brand px-4" type="submit">
-                    <i class="bi bi-send-fill me-1"></i> Submit
-                  </button>
-                  <a class="btn btn-outline-dark px-4" href="#offer">
-                    <i class="bi bi-box-seam me-1"></i> Browse Products
-                  </a>
-                </div>
-              </form>
-
-              <div class="brand-line my-4"></div>
-
-              <!-- Map (uses the Google Maps business listing link referenced on the site) -->
-              <div class="ratio ratio-16x9 rounded-4 overflow-hidden border">
-                <iframe
-                  src="https://www.google.com/maps?q=ABANOUB%20Online%20Store&output=embed"
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  title="Map"
-                ></iframe>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="py-4" data-aos="fade-up" data-aos-duration="800">
-    <div class="container">
-      <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2">
-        <div class="d-flex align-items-center gap-2">
-          <img
-            src="https://usercontent.one/wp/www.abanoubglobal.com/wp-content/uploads/2025/02/cropped-Abanoub_favi.png.png"
-            alt="Logo" width="28" height="28" style="border-radius:10px"
-          >
-          <div class="small text-secondary">
-            © <span id="year"></span> General Trading Company. All rights reserved.
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Toast -->
-  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080;">
-    <div id="liveToast" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body" id="toastBody">Hello!</div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- NEWS TICKER -->
+  <div class="news-ticker">
+    <div class="container">
+      <div class="news-track" id="newsTrack">
+
+        <!-- Set A -->
+        <div class="news-item"><span>LIVE:</span> Ethiopia launches new digital trade hub <span class="ticker-dot"></span></div>
+        <div class="news-item"><span>UPDATE:</span> Coffee exports hit record high <span class="ticker-dot"></span></div>
+        <div class="news-item"><span>TECH:</span> AI startup raises $2M in Addis <span class="ticker-dot"></span></div>
+        <div class="news-item"><span>ECONOMY:</span> Birr stabilizes vs USD <span class="ticker-dot"></span></div>
+        <div class="news-item"><span>GLOBAL:</span> Oil prices drop 3% <span class="ticker-dot"></span></div>
+
+        <!-- Set B (duplicate) -->
+        <div class="news-item"><span>LIVE:</span> Ethiopia launches new digital trade hub <span class="ticker-dot"></span></div>
+        <div class="news-item"><span>UPDATE:</span> Coffee exports hit record high <span class="ticker-dot"></span></div>
+        <div class="news-item"><span>TECH:</span> AI startup raises $2M in Addis <span class="ticker-dot"></span></div>
+        <div class="news-item"><span>ECONOMY:</span> Birr stabilizes vs USD <span class="ticker-dot"></span></div>
+        <div class="news-item"><span>GLOBAL:</span> Oil prices drop 3% <span class="ticker-dot"></span></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- HERO FEATURE -->
+      <section class="hero mb-4">
+        <div class="hero-grid">
+          <div class="hero-main">
+            <div class="hero-card">
+              <img class="hero-img" src="https://picsum.photos/1200/700?random=31" alt="featured">
+            </div>
+
+            <div class="mt-3">
+              <span class="badge-soft"><i class="bi bi-lightning-charge-fill"></i> Featured</span>
+              <h1 class="headline mt-2">Inside Ethiopia’s new trade corridor: what it means for logistics and imports</h1>
+              <p class="subline">A fast, clear breakdown — market impact, regulations, and how businesses should adapt.</p>
+
+              <div class="meta-row">
+                <span><i class="bi bi-clock"></i> Jan 20, 2026</span>
+                <span><i class="bi bi-tag"></i> Logistics & Transport</span>
+                <span><i class="bi bi-eye"></i> 12.4k</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-side">
+            <div class="section-title">
+              <h4>Top Stories</h4>
+              <div class="hint">Today</div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <a class="mini-story" href="#">
+                <img class="mini-img" src="https://picsum.photos/300/200?random=41" alt="">
+                <div>
+                  <div class="mini-title">Banking directive update: what changes for FX access this quarter</div>
+                  <div class="mini-meta"><i class="bi bi-clock"></i> 2h ago • Banks & Financial</div>
+                </div>
+              </a>
+
+              <a class="mini-story" href="#">
+                <img class="mini-img" src="https://picsum.photos/300/200?random=42" alt="">
+                <div>
+                  <div class="mini-title">EV policy moves: import duties, charging rollout, and market winners</div>
+                  <div class="mini-meta"><i class="bi bi-clock"></i> 4h ago • Electric Vehicle</div>
+                </div>
+              </a>
+
+              <a class="mini-story" href="#">
+                <img class="mini-img" src="https://picsum.photos/300/200?random=43" alt="">
+                <div>
+                  <div class="mini-title">Construction equipment demand rises as new projects start nationwide</div>
+                  <div class="mini-meta"><i class="bi bi-clock"></i> 6h ago • Construction & Mining</div>
+                </div>
+              </a>
+
+              <a class="mini-story" href="#">
+                <img class="mini-img" src="https://picsum.photos/300/200?random=44" alt="">
+                <div>
+                  <div class="mini-title">Coffee exports: the data behind the record and what comes next</div>
+                  <div class="mini-meta"><i class="bi bi-clock"></i> 9h ago • Market</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+  <!-- PAGE -->
+  <main class="page">
+    <div class="container">
+
+      <!-- MAIN GRID: Left news + Right sidebar -->
+      <section class="row g-4">
+        <!-- LEFT: News feed -->
+        <div class="col-lg-8">
+          <div class="section-title">
+            <h4>Latest News</h4>
+            </div>
+
+          <div class="row g-3">
+            <!-- Card 1 -->
+            <div class="col-md-6">
+              <article class="news-card">
+                <img class="news-img" src="https://picsum.photos/900/600?random=51" alt="">
+                <div class="news-body">
+                  <span class="badge-soft"><i class="bi bi-tag"></i> Banks & Financial</span>
+                  <div class="news-title">New lending rules: what businesses should expect in 2026</div>
+                  <div class="news-desc">Key highlights, who benefits, and how credit access may change.</div>
+                </div>
+                <div class="news-foot">
+                  <span><i class="bi bi-clock"></i> 1h ago</span>
+                  <a class="btn btn-outline-primary btn-sm btn-read" href="#"><i class="bi bi-arrow-right"></i> Read</a>
+                </div>
+              </article>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-6">
+              <article class="news-card">
+                <img class="news-img" src="https://picsum.photos/900/600?random=52" alt="">
+                <div class="news-body">
+                  <span class="badge-soft"><i class="bi bi-tag"></i> Logistics & Transport</span>
+                  <div class="news-title">Port-to-market delays drop after new hub launches</div>
+                  <div class="news-desc">A practical breakdown of costs, timelines, and the winners.</div>
+                </div>
+                <div class="news-foot">
+                  <span><i class="bi bi-clock"></i> 3h ago</span>
+                  <a class="btn btn-outline-primary btn-sm btn-read" href="#"><i class="bi bi-arrow-right"></i> Read</a>
+                </div>
+              </article>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-6">
+              <article class="news-card">
+                <img class="news-img" src="https://picsum.photos/900/600?random=53" alt="">
+                <div class="news-body">
+                  <span class="badge-soft"><i class="bi bi-tag"></i> Vehicles</span>
+                  <div class="news-title">Diesel truck demand returns — but import paperwork tightens</div>
+                  <div class="news-desc">What importers must prepare this quarter to avoid delays.</div>
+                </div>
+                <div class="news-foot">
+                  <span><i class="bi bi-clock"></i> 5h ago</span>
+                  <a class="btn btn-outline-primary btn-sm btn-read" href="#"><i class="bi bi-arrow-right"></i> Read</a>
+                </div>
+              </article>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="col-md-6">
+              <article class="news-card">
+                <img class="news-img" src="https://picsum.photos/900/600?random=54" alt="">
+                <div class="news-body">
+                  <span class="badge-soft"><i class="bi bi-tag"></i> Construction & Mining</span>
+                  <div class="news-title">Machinery imports: price shifts and the best timing strategy</div>
+                  <div class="news-desc">How FX timing and shipping cycles affect equipment costs.</div>
+                </div>
+                <div class="news-foot">
+                  <span><i class="bi bi-clock"></i> 8h ago</span>
+                  <a class="btn btn-outline-primary btn-sm btn-read" href="#"><i class="bi bi-arrow-right"></i> Read</a>
+                </div>
+              </article>
+            </div>
+
+            <!-- Pagination look -->
+            <div class="col-12">
+              <div class="d-flex justify-content-center mt-2">
+                <nav aria-label="Pagination">
+                  <ul class="pagination">
+                    <li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RIGHT: Sidebar (col-lg-4) -->
+        <div class="col-lg-4">
+          <div class="sidebar-sticky">
+
+            <!-- Subscribe -->
+            <aside class="panel">
+              <div class="panel-title">
+                <span><i class="bi bi-envelope-paper"></i> Subscribe</span>
+                <small>Free</small>
+              </div>
+
+              <div class="subscribe-box">
+                <div class="fw-bold mb-1">Get market updates in your inbox</div>
+                <div class="subscribe-text mb-3">Weekly highlights: banking, vehicles, logistics, regulations.</div>
+
+                <form class="input-group">
+                  <input class="form-control" type="email" placeholder="Enter your email" required>
+                  <button class="btn btn-primary fw-bold" type="submit"><i class="bi bi-send"></i></button>
+                </form>
+
+                <div class="small mt-2" style="color: var(--muted); font-weight:700;">
+                  <i class="bi bi-shield-check"></i> No spam • Unsubscribe anytime
+                </div>
+              </div>
+            </aside>
+
+            <!-- Old News -->
+            <aside class="panel">
+              <div class="panel-title">
+                <span><i class="bi bi-clock-history"></i> Old News</span>
+                <small>Archive</small>
+              </div>
+
+              <div class="d-grid gap-2">
+                <a class="old-item" href="#">
+                  <img class="old-img" src="https://picsum.photos/300/200?random=61" alt="">
+                  <div>
+                    <div class="old-title">New customs update: revised clearance requirements explained</div>
+                    <div class="old-meta"><i class="bi bi-clock"></i> Dec 18, 2025</div>
+                  </div>
+                </a>
+
+                <a class="old-item" href="#">
+                  <img class="old-img" src="https://picsum.photos/300/200?random=62" alt="">
+                  <div>
+                    <div class="old-title">Transport directive: new compliance steps for fleet operators</div>
+                    <div class="old-meta"><i class="bi bi-clock"></i> Dec 02, 2025</div>
+                  </div>
+                </a>
+
+                <a class="old-item" href="#">
+                  <img class="old-img" src="https://picsum.photos/300/200?random=63" alt="">
+                  <div>
+                    <div class="old-title">FX access: what importers should track weekly</div>
+                    <div class="old-meta"><i class="bi bi-clock"></i> Nov 21, 2025</div>
+                  </div>
+                </a>
+              </div>
+            </aside>
+
+            <!-- Quick Categories -->
+            <aside class="panel">
+              <div class="panel-title">
+                <span><i class="bi bi-grid-1x2"></i> Quick Categories</span>
+                <small>Browse</small>
+              </div>
+
+              <div>
+                <a class="chip" href="#"><i class="bi bi-bank"></i> Banks</a>
+                <a class="chip" href="#"><i class="bi bi-truck"></i> Logistics</a>
+                <a class="chip" href="#"><i class="bi bi-car-front"></i> Vehicles</a>
+                <a class="chip" href="#"><i class="bi bi-lightning-charge"></i> EV</a>
+                <a class="chip" href="#"><i class="bi bi-cone-striped"></i> Construction</a>
+                <a class="chip" href="#"><i class="bi bi-journal-text"></i> Regulations</a>
+              </div>
+            </aside>
+
+            <!-- Market Snapshot -->
+            <aside class="panel">
+              <div class="panel-title">
+                <span><i class="bi bi-graph-up-arrow"></i> Market Snapshot</span>
+                <small>Today</small>
+              </div>
+
+              <div class="d-grid gap-2">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="fw-bold"><i class="bi bi-currency-dollar"></i> USD/ETB</div>
+                  <div class="fw-bold text-success"><i class="bi bi-arrow-down"></i> 0.8%</div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="fw-bold"><i class="bi bi-cup-hot"></i> Coffee</div>
+                  <div class="fw-bold text-success"><i class="bi bi-arrow-up"></i> 2.1%</div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="fw-bold"><i class="bi bi-fuel-pump"></i> Fuel</div>
+                  <div class="fw-bold text-danger"><i class="bi bi-arrow-up"></i> 1.3%</div>
+                </div>
+
+                <button class="btn btn-outline-primary btn-sm fw-bold mt-1">
+                  <i class="bi bi-bar-chart-line"></i> View full dashboard
+                </button>
+              </div>
+            </aside>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <div class="fw-bold">© Wahid Business News</div>
+      <div class="small">Business news, market trends & essential documents</div>
+    </div>
+  </footer>
+
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // Theme toggle (light default, dark optional)
+    (function(){
+      const root = document.documentElement;
+      const btn = document.getElementById("themeToggle");
 
-    function toast(msg){
-      document.getElementById("toastBody").textContent = msg;
-      const el = document.getElementById("liveToast");
-      const t = bootstrap.Toast.getOrCreateInstance(el, { delay: 2600 });
-      t.show();
-    }
+      // restore saved theme
+      const saved = localStorage.getItem("wahid_theme");
+      if(saved === "dark" || saved === "light"){
+        root.setAttribute("data-theme", saved);
+        btn.innerHTML = saved === "dark"
+          ? '<i class="bi bi-sun"></i> Light'
+          : '<i class="bi bi-moon-stars"></i> Dark';
+      } else {
+        btn.innerHTML = '<i class="bi bi-moon-stars"></i> Dark';
+      }
 
-    AOS.init({
-      duration: 800,
-      easing: "ease-out-quart",
-      once: true,
-      offset: 80
-    });
+      btn.addEventListener("click", () => {
+        const current = root.getAttribute("data-theme") || "light";
+        const next = current === "light" ? "dark" : "light";
+        root.setAttribute("data-theme", next);
+        localStorage.setItem("wahid_theme", next);
+
+        btn.innerHTML = next === "dark"
+          ? '<i class="bi bi-sun"></i> Light'
+          : '<i class="bi bi-moon-stars"></i> Dark';
+      });
+    })();
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
